@@ -1,6 +1,6 @@
 const axios = require('axios');
-const endpoint = "https://acjjface.cognitiveservices.azure.com/face/v1.0/detect";
-const subscriptionKey = "YOUR_AZURE_SUBSCRIPTION_KEY";
+const endpoint = "https://acjjface.cognitiveservices.azure.com/";
+const subscriptionKey = "e006c9dc96054e438dd4442852fcc650";
 
 async function detectFace(imageData) {
     try {
