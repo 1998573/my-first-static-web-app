@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #FFB600, #EB8C00, #D04A02, #DB536A, #E0301E);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            width: 350px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            width: 100px;
+            margin-bottom: 20px;
+        }
+
+        .auth-selection {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .auth-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #E0301E;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 0 5px;
+            transition: background-color 0.3s;
+        }
+
+        .auth-button.active {
+            background-color: #D04A02;
+        }
+
+        .auth-button:hover {
+            background-color: #D04A02;
+        }
+
+        .verification-area {
+            margin-bottom: 15px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .face-placeholder, .fingerprint-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            border: 2px dashed #D04A02;
+            border-radius: 50%;
+            padding: 10px;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .fingerprint-icon {
+            width: 80px;
+            margin-bottom: 10px;
+        }
+
+        .status-message {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .switch-button {
+            padding: 8px 16px;
+            border: none;
+            background-color: #FFB600;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .switch-button:hover {
+            background-color: #D04A02;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- PwC Logo -->
+        < img src="https://i.imgur.com/8Uio1XN.jpg" alt="PwC Logo" class="logo">
+
+        <!-- Authentication Method Selection -->
+        <div class="auth-selection">
+            <button id="faceBtn" class="auth-button active">人脸识别</button>
+            <button id="fingerprintBtn" class="auth-button">指纹识别</button>
+        </div>
+
+        <!-- Verification Area -->
+        <div id="faceRecognition" class="verification-area">
+            <div class="face-placeholder">
+                <p>请将面部对准框</p >
+            </div>
+        </div>
+
+        <div id="fingerprintRecognition" class="verification-area hidden">
+            <div class="fingerprint-placeholder">
+                < img src="https://i.imgur.com/Jt0lGSx.png" alt="Fingerprint Icon" class="fingerprint-icon">
+                <p>请按下指纹识别器</p >
+            </div>
+        </div>
+
+        <!-- Status Message -->
+        <p id="statusMessage" class="status-message">正在验证...</p >
+
+        <!-- Switch Method Button -->
+        <button id="switchMethod" class="switch-button">切换方法</button>
+    </div>
+
+    <script>
+        document.getElementById('faceBtn').addEventListener('click', () => {
+            toggleAuthMethod('face');
+        });
+
+        document.getElementById('fingerprintBtn').addEventListener('click', () => {
+            toggleAuthMethod('fingerprint');
+        });
+
+        document.getElementById('switchMethod').addEventListener('click', () => {
+            const faceArea = document.getElementById('faceRecognition');
+            const fingerprintArea = document.getElementById('fingerprintRecognition');
+
+            if (faceArea.classList.contains('hidden')) {
+                toggleAuthMethod('face');
+            } else {
+                toggleAuthMethod('fingerprint');
+            }
+        });
+
+        function toggleAuthMethod(method) {
+            const faceArea = document.getElementById('faceRecognition');
+            const fingerprintArea = document.getElementById('fingerprintRecognition');
+            const faceBtn = document.getElementById('faceBtn');
+            const fingerprintBtn = document.getElementById('fingerprintBtn');
+
+            if (method === 'face') {
+                faceArea.classList.remove('hidden');
+                fingerprintArea.classList.add('hidden');
+                faceBtn.classList.add('active');
+                fingerprintBtn.classList.remove('active');
+                document.getElementById('statusMessage').textContent = '请将面部对准框';
+            } else {
+                faceArea.classList.add('hidden');
+                fingerprintArea.classList.remove('hidden');
+                faceBtn.classList.remove('active');
+                fingerprintBtn.classList.add('active');
+                document.getElementById('statusMessage').textContent = '请按下指纹识别器';
+            }
+        }
+    </script>
+</body>
+</html>
