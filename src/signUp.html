@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWC Employee Registration</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #FFB600, #EB8C00, #D04A02, #DB536A, #E0301E);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch; /* Make container height equal */
+            width: 100%;
+            max-width: 1000px; /* Limit max width */
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+
+        .image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px; /* Reduce whitespace */
+            background: #f9f9f9;
+        }
+
+        .image-container img {
+            width: 90%;
+            max-width: 400px; /* Adjust max image width */
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .register-container {
+            flex: 1;
+            padding: 20px; /* Reduce padding */
+            background: #ffffff;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .register-container .logo {
+            width: 100px; /* Adjust logo size */
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+            font-size: 24px; /* Adjust title size */
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 10px; /* Reduce padding */
+            margin: 8px 0; /* Reduce margin */
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 15px; /* Adjust input field font size */
+            transition: border 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff6600;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
+        }
+
+        .register-btn {
+            background: #ff6600;
+            color: #ffffff;
+            padding: 10px; /* Reduce padding */
+            border: none;
+            border-radius: 5px;
+            font-size: 16px; /* Adjust button font size */
+            cursor: pointer;
+            margin-top: 10px; /* Reduce margin */
+            transition: background 0.3s, transform 0.2s;
+            width: 100%; /* Set button width to 100% */
+        }
+
+        .register-btn:hover {
+            background: #e0301e;
+            transform: scale(1.03); /* Scale effect on hover */
+        }
+
+        .login-link {
+            margin-top: 10px; /* Reduce margin */
+            font-size: 14px;
+        }
+
+        .login-link a {
+            color: #ff6600;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                max-width: 100%;
+            }
+
+            .image-container,
+            .register-container {
+                width: 100%;
+                padding: 10px; /* Reduce padding on small screens */
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="main-container">
+    <div class="image-container">
+        <img src="https://img.freepik.com/premium-photo/businessman-working-with-documents-calculator-pen-ruler-pencils_962136-2759.jpg?uid=R169156898&ga=GA1.2.2005150000.1729260778&semt=ais_hybrid" alt="Accounting Image">
+    </div>
+    <div class="register-container">
+        <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.11X1xecD-PBBWrKldWgHigHaEK?w=315&h=180&c=7&r=0&o=5&dpr=1.7&pid=1.7" class="logo" alt="PwC Logo">
+        <h2>Employee Registration</h2>
+        <form action="/register" method="POST">
+            <input type="text" name="employeeID" placeholder="Enter Employee ID" required>
+            <input type="text" name="fullName" placeholder="Enter Name" required>
+            <input type="email" name="email" placeholder="Enter Email" required>
+            <input type="password" name="password" placeholder="Set Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit" class="register-btn">Register</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="/login">Click to login</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
