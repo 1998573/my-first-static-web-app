@@ -19,9 +19,9 @@
         .main-container {
             display: flex;
             justify-content: center;
-            align-items: stretch; /* Make container height equal */
+            align-items: stretch;
             width: 100%;
-            max-width: 1000px; /* Limit max width */
+            max-width: 1000px;
             background: #ffffff;
             border-radius: 20px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
@@ -33,20 +33,20 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 10px; /* Reduce whitespace */
+            padding: 10px; 
             background: #f9f9f9;
         }
 
         .image-container img {
             width: 90%;
-            max-width: 400px; /* Adjust max image width */
+            max-width: 400px;
             border-radius: 10px;
             box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
         }
 
         .register-container {
             flex: 1;
-            padding: 20px; /* Reduce padding */
+            padding: 20px;
             background: #ffffff;
             border-radius: 20px;
             text-align: center;
@@ -54,24 +54,24 @@
         }
 
         .register-container .logo {
-            width: 100px; /* Adjust logo size */
+            width: 100px;
             margin-bottom: 15px;
         }
 
         h2 {
             margin-bottom: 15px;
             color: #333;
-            font-size: 24px; /* Adjust title size */
+            font-size: 24px;
             font-weight: 600;
         }
 
         input[type="text"], input[type="email"], input[type="password"] {
             width: 100%;
-            padding: 10px; /* Reduce padding */
-            margin: 8px 0; /* Reduce margin */
+            padding: 10px; 
+            margin: 8px 0;
             border: 2px solid #ddd;
             border-radius: 5px;
-            font-size: 15px; /* Adjust input field font size */
+            font-size: 15px;
             transition: border 0.3s;
         }
 
@@ -84,23 +84,23 @@
         .register-btn {
             background: #ff6600;
             color: #ffffff;
-            padding: 10px; /* Reduce padding */
+            padding: 10px; 
             border: none;
             border-radius: 5px;
-            font-size: 16px; /* Adjust button font size */
+            font-size: 16px;
             cursor: pointer;
-            margin-top: 10px; /* Reduce margin */
+            margin-top: 10px;
             transition: background 0.3s, transform 0.2s;
-            width: 100%; /* Set button width to 100% */
+            width: 100%;
         }
 
         .register-btn:hover {
             background: #e0301e;
-            transform: scale(1.03); /* Scale effect on hover */
+            transform: scale(1.03);
         }
 
         .login-link {
-            margin-top: 10px; /* Reduce margin */
+            margin-top: 10px;
             font-size: 14px;
         }
 
@@ -122,10 +122,26 @@
             .image-container,
             .register-container {
                 width: 100%;
-                padding: 10px; /* Reduce padding on small screens */
+                padding: 10px;
             }
         }
     </style>
+    <script>
+        function validateForm(event) {
+            const password = document.querySelector('input[name="password"]').value;
+            const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please try again.");
+                event.preventDefault(); // Prevent form submission
+            } else {
+                // Prevent form submission to the server
+                event.preventDefault(); 
+                // Redirect to index.html after successful validation
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="main-container">
@@ -135,21 +151,18 @@
     <div class="register-container">
         <img src="https://tse4-mm.cn.bing.net/th/id/OIP-C.11X1xecD-PBBWrKldWgHigHaEK?w=315&h=180&c=7&r=0&o=5&dpr=1.7&pid=1.7" class="logo" alt="PwC Logo">
         <h2>Employee Registration</h2>
-        <form action="/register" method="POST">
+        <form action="/register" method="POST" onsubmit="validateForm(event)">
             <input type="text" name="employeeID" placeholder="Enter Employee ID" required>
             <input type="text" name="fullName" placeholder="Enter Name" required>
             <input type="email" name="email" placeholder="Enter Email" required>
             <input type="password" name="password" placeholder="Set Password" required>
             <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
-            <button onclick="window.location.href='index.html'" style="width: 100%; padding: 14px; margin-top: 15px; border: none; background-color: #ff6600; color: white; border-radius: 8px; font-size: 16px; cursor: pointer;">
-                Register
-                </button>
+            <button type="submit" class="register-btn">Register</button>
         </form>
         <div class="login-link">
             Already have an account? <a href="index.html">Click to login</a>
         </div>
     </div>
 </div>
-
 </body>
 </html>
