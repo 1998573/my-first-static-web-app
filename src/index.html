@@ -16,82 +16,80 @@
             margin: 0;
         }
 
-.main-container {
-    display: flex;
-    align-items: stretch; /* Ensures equal height for both containers */
-    justify-content: center;
-    width: 95%; /* Increase width slightly for a more spacious layout */
-    max-width: 1500px; /* Adjusted to allow more room */
-}
+        .main-container {
+            display: flex;
+            align-items: stretch;
+            justify-content: center;
+            width: 95%;
+            max-width: 1500px;
+        }
 
-.image-container {
-    flex: 2; /* Increase the flex ratio to make the image container wider */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 40px; /* Adjust spacing for balance */
-}
+        .image-container {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 40px;
+        }
 
-.image-container img {
-    width: 100%;
-    max-width: 800px; /* Increase the max-width to expand the image */
-    height: auto; /* Maintain aspect ratio */
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-    object-fit: cover;
-    transform: perspective(1000px) rotateY(-5deg);
-    transition: transform 0.3s, box-shadow 0.3s;
-    background-color: rgba(255, 255, 255, 0.3); 
-    opacity: 0.8; 
-}
+        .image-container img {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            object-fit: cover;
+            transform: perspective(1000px) rotateY(-5deg);
+            transition: transform 0.3s, box-shadow 0.3s;
+            opacity: 0.8;
+        }
 
-.image-container img:hover {
-    transform: perspective(1000px) rotateY(-10deg); /* More pronounced rotation on hover */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 25px rgba(0, 0, 0, 0.15);
-}
+        .image-container img:hover {
+            transform: perspective(1000px) rotateY(-10deg); /* More pronounced rotation on hover */
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 25px rgba(0, 0, 0, 0.15);
+        }
 
-.login-container {
-    flex: 1; /* Keep this to 1 for proportionate spacing */
-    background: #fff;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
+        .login-container {
+            flex: 1;
+            background: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
 
-
-        .login-container .logo {
+        .logo {
             width: 120px;
-            width: 120px;
-    margin: 0 auto 20px;
-    display: block; 
+            margin: 0 auto 20px;
         }
 
         h2 {
-            margin-bottom: 10px; /* Reduced margin to move it closer to the logo */
+            margin-bottom: 10px;
             color: #333;
-            font-size: 26px; /* Slightly larger font size if desired */
+            font-size: 26px;
             font-weight: 600;
         }
 
         .input-field {
             width: 100%;
-            padding: 16px; /* Increased padding for larger input fields */
+            padding: 16px;
             margin: 12px 0;
             border: 2px solid #ccc;
             border-radius: 8px;
-            font-size: 18px; /* Larger font size */
+            font-size: 18px;
             box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s; /* Adding transition for focus effect */
         }
 
-.input-field:focus {
-    border-color: #ff6600;
-    outline: none;
-}
+        .input-field:focus {
+            border-color: #ff6600;
+            outline: none;
+            box-shadow: 0 0 5px rgba(255, 102, 0, 0.5); /* Adding shadow on focus */
+        }
 
         .bio-auth {
             display: flex;
@@ -123,34 +121,31 @@
             text-decoration: underline;
         }
     </style>
- <script>
-    function validateAndRedirect() {
-        const staffIdInput = document.getElementById('staffId');
-        const staffId = staffIdInput.value;
-        const passwordInput = document.getElementById('password');
-        const password = passwordInput.value;
+    <script>
+        function validateAndRedirect() {
+            const staffIdInput = document.getElementById('staffId');
+            const staffId = staffIdInput.value;
+            const passwordInput = document.getElementById('password');
+            const password = passwordInput.value;
 
-        // 检查Staff ID是否为8位数字
-        if (!/^\d{8}$/.test(staffId)) {
-            alert('ID错误，请输入8位数字');
-            staffIdInput.value = ''; // 清空输入框
-            return; // 终止函数
+            // 检查Staff ID是否为8位数字
+            if (!/^\d{8}$/.test(staffId)) {
+                alert('ID错误，请输入8位数字');
+                staffIdInput.value = ''; // 清空输入框
+                return; // 终止函数
+            }
+
+            // 检查密码长度是否在4到18位之间
+            if (password.length < 4 || password.length > 18) {
+                alert('密码长度必须在4到18位之间');
+                passwordInput.value = ''; // 清空输入框
+                return; // 终止函数
+            }
+
+            // 输入有效，跳转到recognition.html
+            window.location.href = 'recognition.html';
         }
-
-        // 检查密码长度是否在4到18位之间
-        if (password.length < 4 || password.length > 18) {
-            alert('密码长度必须在4到18位之间');
-            passwordInput.value = ''; // 清空输入框
-            return; // 终止函数
-        }
-
-        // 输入有效，跳转到recognition.html
-        window.location.href = 'recognition.html';
-    }
-</script>
-
-
-
+    </script>
 </head>
 <body>
 <div class="main-container">
@@ -158,10 +153,10 @@
         <img src="https://img.freepik.com/premium-photo/businessman-working-with-documents-calculator-pen-ruler-pencils_962136-2759.jpg?uid=R169156898&ga=GA1.2.2005150000.1729260778&semt=ais_hybrid" alt="Accounting Image">
     </div>
     <div class="login-container">
-        <img src="https://i.postimg.cc/15zgHGWs/pwc.png" class="logo" class="logo" class="logo" alt="PwC Logo">
+        <img src="https://i.postimg.cc/15zgHGWs/pwc.png" class="logo" alt="PwC Logo">
         <h2>Log in</h2>
-        <input type="text" placeholder="Staff ID" id="staffId" onblur="validateStaffId()">
-        <input type="password" placeholder="Password" id="password" onblur="validatePassword()">
+        <input type="text" placeholder="Staff ID" id="staffId" class="input-field" onblur="validateStaffId()">
+        <input type="password" placeholder="Password" id="password" class="input-field" onblur="validatePassword()">
        
         <button onclick="validateAndRedirect()" style="width: 100%; padding: 14px; margin-top: 15px; border: none; background-color: #ff6600; color: white; border-radius: 8px; font-size: 16px; cursor: pointer;">
             Next
