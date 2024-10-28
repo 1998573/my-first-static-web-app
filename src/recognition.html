@@ -13,43 +13,52 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #FFB600, #EB8C00, #D04A02, #DB536A, #E0301E);
+            background: linear-gradient(to right, rgba(255, 182, 0, 0.8), rgba(235, 140, 0, 0.8), rgba(208, 74, 2, 0.8), rgba(219, 83, 106, 0.8), rgba(224, 48, 30, 0.8));
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            padding: 20px;
         }
 
         .container {
             text-align: center;
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            width: 350px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: white;
+            padding: 60px;  
+            border-radius: 15px;  
+            width: 600px;   
+            height: auto;   
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s; 
+            margin: auto; 
+        }
+
+        .container:hover {
+            transform: translateY(-5px); 
         }
 
         .logo {
-            width: 100px;
-            margin-bottom: 20px;
+            width: 160px; 
+            margin-bottom: 30px; 
         }
 
         .auth-selection {
             display: flex;
             justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 40px; 
         }
 
         .auth-button {
-            padding: 10px 20px;
+            padding: 14px 28px; 
             border: none;
             background-color: #E0301E;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
-            margin: 0 5px;
-            transition: background-color 0.3s;
+            border-radius: 8px; 
+            margin: 0 15px; 
+            font-size: 18px; 
+            transition: background-color 0.3s, transform 0.3s; 
         }
 
         .auth-button.active {
@@ -58,10 +67,15 @@
 
         .auth-button:hover {
             background-color: #D04A02;
+            transform: scale(1.05); 
         }
 
         .verification-area {
-            margin-bottom: 15px;
+            display: flex; /* 使用flexbox布局确保水平垂直居中 */
+            align-items: center; /* 垂直居中 */
+            justify-content: center; /* 水平居中 */
+            height: 220px; /* 确保有足够的高度 */
+            margin-bottom: 30px; 
         }
 
         .hidden {
@@ -73,45 +87,48 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 150px;
-            border: 2px dashed #D04A02;
+            height: 100%; /* 占满父容器高度 */
+            width: 220px; 
+            border: 2px solid #D04A02;
             border-radius: 50%;
             padding: 10px;
-            color: #888;
-            font-size: 14px;
+            color: #555; 
+            font-size: 18px; 
+            transition: border-color 0.3s; 
         }
 
-        .fingerprint-icon {
-            width: 80px;
-            margin-bottom: 10px;
+        .face-placeholder:hover, .fingerprint-placeholder:hover {
+            border-color: #FFB600; 
         }
 
         .status-message {
-            font-size: 14px;
+            font-size: 18px; 
             color: #666;
-            margin-bottom: 10px;
+            margin-bottom: 20px; 
         }
 
         .switch-button {
-            padding: 8px 16px;
+            padding: 12px 24px; 
             border: none;
             background-color: #FFB600;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            border-radius: 8px; 
+            font-size: 18px; 
+            transition: background-color 0.3s, transform 0.3s; 
         }
 
         .switch-button:hover {
             background-color: #D04A02;
+            transform: scale(1.05); 
         }
     </style>
 </head>
 <body>
     <div class="container">
         <!-- PwC Logo -->
-       <img src="data:image/jpeg;base64,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" class="logo" alt="PwC Logo">
+        <img src="https://i.postimg.cc/15zgHGWs/pwc.png" class="logo" alt="PwC Logo">
 
         <!-- Authentication Method Selection -->
         <div class="auth-selection">
@@ -122,18 +139,18 @@
         <!-- Verification Area -->
         <div id="faceRecognition" class="verification-area">
             <div class="face-placeholder">
-                <p>Please look at the camera</p >
+                <p>Please look at the camera</p>
             </div>
         </div>
 
         <div id="fingerprintRecognition" class="verification-area hidden">
             <div class="fingerprint-placeholder">
-                <p>Press your finger to the identifier</p >
+                <p>Press your finger to the identifier</p>
             </div>
         </div>
 
         <!-- Status Message -->
-        <p id="statusMessage" class="status-message">Checking...</p >
+        <p id="statusMessage" class="status-message">Checking...</p>
 
         <!-- Switch Method Button -->
         <button id="switchMethod" class="switch-button">Try another authentication here</button>
@@ -179,46 +196,6 @@
                 document.getElementById('statusMessage').textContent = 'Fingerprint recognition';
             }
         }
-        
-        async function analyzeFace(imageData) {
-    const apiKey = 'e006c9dc96054e438dd4442852fcc650';
-    const endpoint = 'https://acjjface.cognitiveservices.azure.com/face/v1.0/detect';
-
-    const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-            'Ocp-Apim-Subscription-Key': apiKey,
-            'Content-Type': 'application/octet-stream'
-        },
-        body: imageData
-    });
-
-    if (response.ok) {
-        const data = await response.json();
-        console.log('Face API response:', data);
-        document.getElementById('statusMessage').textContent = 'Face detected!';
-    } else {
-        console.error('Error:', response.statusText);
-        document.getElementById('statusMessage').textContent = 'Face detection failed';
-    }
-}
-
-// Example function to capture image and call analyzeFace
-document.getElementById('faceBtn').addEventListener('click', async () => {
-    const imageBlob = await captureImageFromCamera(); // Define this function as needed
-    if (imageBlob) {
-        await analyzeFace(imageBlob);
-    }
-});
-
-// Dummy function to capture image data (to be implemented)
-async function captureImageFromCamera() {
-    // Capture image and return it as Blob for Face API
-    return new Blob(); // Replace with actual image capture code
-}
-
     </script>
-    
-    
 </body>
 </html>
