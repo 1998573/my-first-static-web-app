@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -39,14 +40,13 @@
             border-radius: 15px;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
             object-fit: cover;
-            transform: perspective(1000px) rotateY(-5deg);
             transition: transform 0.3s, box-shadow 0.3s;
             opacity: 0.8;
         }
 
         .image-container img:hover {
-            transform: perspective(1000px) rotateY(-10deg); /* More pronounced rotation on hover */
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 0 25px rgba(0, 0, 0, 0.15);
+            transform: perspective(1000px) rotateY(-10deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
         }
 
         .login-container {
@@ -82,18 +82,18 @@
             border-radius: 8px;
             font-size: 18px;
             box-sizing: border-box;
-            transition: border-color 0.3s, box-shadow 0.3s; /* Adding transition for focus effect */
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         .input-field:focus {
             border-color: #ff6600;
             outline: none;
-            box-shadow: 0 0 5px rgba(255, 102, 0, 0.5); /* Adding shadow on focus */
+            box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
         }
 
         .bio-auth {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Center the icon */
             margin-top: 15px;
         }
 
@@ -101,6 +101,7 @@
             width: 40px;
             cursor: pointer;
             transition: transform 0.2s;
+            margin-right: 10px; /* Adjust space between icons if needed */
         }
 
         .bio-auth img:hover {
@@ -147,28 +148,31 @@
         }
     </script>
 </head>
+
 <body>
-<div class="main-container">
-    <div class="image-container">
-        <img src="https://img.freepik.com/premium-photo/businessman-working-with-documents-calculator-pen-ruler-pencils_962136-2759.jpg?uid=R169156898&ga=GA1.2.2005150000.1729260778&semt=ais_hybrid" alt="Accounting Image">
-    </div>
-    <div class="login-container">
-        <img src="https://i.postimg.cc/15zgHGWs/pwc.png" class="logo" alt="PwC Logo">
-        <h2>Log in</h2>
-        <input type="text" placeholder="Staff ID" id="staffId" class="input-field" onblur="validateStaffId()">
-        <input type="password" placeholder="Password" id="password" class="input-field" onblur="validatePassword()">
-       
-        <button onclick="validateAndRedirect()" style="width: 100%; padding: 14px; margin-top: 15px; border: none; background-color: #ff6600; color: white; border-radius: 8px; font-size: 16px; cursor: pointer;">
-            Next
-        </button>
-        <div class="bio-auth">
-            <img src="https://i.postimg.cc/bJLJx48p/image.png" alt="指纹登录" title="指纹登录">
-            <img src="https://i.postimg.cc/25CQwRvK/6bdf366a07d5df454c22f17af873d5a.png" alt="面部识别" title="面部识别">
+    <div class="main-container">
+        <div class="image-container">
+            <img src="https://img.freepik.com/premium-photo/businessman-working-with-documents-calculator-pen-ruler-pencils_962136-2759.jpg?uid=R169156898&ga=GA1.2.2005150000.1729260778&semt=ais_hybrid"
+                alt="Accounting Image">
         </div>
-        <div class="register-link">
-            Without an account? <a href="signUp.html">Sign up here!</a>
+        <div class="login-container">
+            <img src="https://i.postimg.cc/15zgHGWs/pwc.png" class="logo" alt="PwC Logo">
+            <h2>Log in</h2>
+            <input type="text" placeholder="Staff ID" id="staffId" class="input-field" onblur="validateStaffId()">
+            <input type="password" placeholder="Password" id="password" class="input-field" onblur="validatePassword()">
+
+            <button onclick="validateAndRedirect()"
+                style="width: 100%; padding: 14px; margin-top: 15px; border: none; background-color: #ff6600; color: white; border-radius: 8px; font-size: 16px; cursor: pointer;">
+                Next
+            </button>
+            <div class="bio-auth">
+                <img src="https://i.postimg.cc/25CQwRvK/6bdf366a07d5df454c22f17af873d5a.png" alt="面部识别" title="面部识别">
+            </div>
+            <div class="register-link">
+                Without an account? <a href="signUp.html">Sign up here!</a>
+            </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>
