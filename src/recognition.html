@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authentication Page</title>
+    <title>面部识别</title>
     <style>
         * {
             margin: 0;
@@ -24,178 +24,100 @@
         .container {
             text-align: center;
             background: white;
-            padding: 60px;  
-            border-radius: 15px;  
-            width: 600px;   
-            height: auto;   
+            padding: 60px;
+            border-radius: 15px;
+            width: 600px;
+            height: auto;
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
-            transition: transform 0.3s; 
-            margin: auto; 
+            margin: auto;
         }
 
-        .container:hover {
-            transform: translateY(-5px); 
-        }
-
-        .logo {
-            width: 160px; 
-            margin-bottom: 30px; 
-        }
-
-        .auth-selection {
+        .face-placeholder {
             display: flex;
+            align-items: center;
             justify-content: center;
-            margin-bottom: 40px; 
+            height: 220px;
+            width: 220px;
+            border: 2px solid #D04A02;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            margin: 20px auto;
+            background-color: #f1f1f1;
+        }
+
+        video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 100%;
+            width: auto;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
         }
 
         .auth-button {
-            padding: 14px 28px; 
+            padding: 14px 28px;
             border: none;
             background-color: #E0301E;
             color: white;
             font-weight: bold;
             cursor: pointer;
-            border-radius: 8px; 
-            margin: 0 15px; 
-            font-size: 18px; 
-            transition: background-color 0.3s, transform 0.3s; 
-        }
-
-        .auth-button.active {
-            background-color: #D04A02;
-        }
-
-        .auth-button:hover {
-            background-color: #D04A02;
-            transform: scale(1.05); 
-        }
-
-        .verification-area {
-            display: flex; /* 使用flexbox布局确保水平垂直居中 */
-            align-items: center; /* 垂直居中 */
-            justify-content: center; /* 水平居中 */
-            height: 220px; /* 确保有足够的高度 */
-            margin-bottom: 30px; 
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .face-placeholder, .fingerprint-placeholder {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%; /* 占满父容器高度 */
-            width: 220px; 
-            border: 2px solid #D04A02;
-            border-radius: 50%;
-            padding: 10px;
-            color: #555; 
-            font-size: 18px; 
-            transition: border-color 0.3s; 
-        }
-
-        .face-placeholder:hover, .fingerprint-placeholder:hover {
-            border-color: #FFB600; 
-        }
-
-        .status-message {
-            font-size: 18px; 
-            color: #666;
-            margin-bottom: 20px; 
-        }
-
-        .switch-button {
-            padding: 12px 24px; 
-            border: none;
-            background-color: #FFB600;
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            border-radius: 8px; 
-            font-size: 18px; 
-            transition: background-color 0.3s, transform 0.3s; 
-        }
-
-        .switch-button:hover {
-            background-color: #D04A02;
-            transform: scale(1.05); 
+            border-radius: 8px;
+            margin-top: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- PwC Logo -->
-        <img src="https://i.postimg.cc/15zgHGWs/pwc.png" class="logo" alt="PwC Logo">
-
-        <!-- Authentication Method Selection -->
-        <div class="auth-selection">
-            <button id="faceBtn" class="auth-button active">Face recognition</button>
-            <button id="fingerprintBtn" class="auth-button">Fingerprint recognition</button>
+        <h2>面部识别</h2>
+        <div class="face-placeholder">
+            <video id="video" autoplay playsinline></video>
         </div>
-
-        <!-- Verification Area -->
-        <div id="faceRecognition" class="verification-area">
-            <div class="face-placeholder">
-                <p>Please look at the camera</p>
-            </div>
-        </div>
-
-        <div id="fingerprintRecognition" class="verification-area hidden">
-            <div class="fingerprint-placeholder">
-                <p>Press your finger to the identifier</p>
-            </div>
-        </div>
-
-        <!-- Status Message -->
-        <p id="statusMessage" class="status-message">Checking...</p>
-
-        <!-- Switch Method Button -->
-        <button id="switchMethod" class="switch-button">Try another authentication here</button>
+        <button class="auth-button" onclick="captureAndSend()">识别面部</button>
     </div>
 
     <script>
-        document.getElementById('faceBtn').addEventListener('click', () => {
-            toggleAuthMethod('face');
-        });
+        const video = document.getElementById('video');
 
-        document.getElementById('fingerprintBtn').addEventListener('click', () => {
-            toggleAuthMethod('fingerprint');
-        });
-
-        document.getElementById('switchMethod').addEventListener('click', () => {
-            const faceArea = document.getElementById('faceRecognition');
-            const fingerprintArea = document.getElementById('fingerprintRecognition');
-
-            if (faceArea.classList.contains('hidden')) {
-                toggleAuthMethod('face');
-            } else {
-                toggleAuthMethod('fingerprint');
-            }
-        });
-
-        function toggleAuthMethod(method) {
-            const faceArea = document.getElementById('faceRecognition');
-            const fingerprintArea = document.getElementById('fingerprintRecognition');
-            const faceBtn = document.getElementById('faceBtn');
-            const fingerprintBtn = document.getElementById('fingerprintBtn');
-
-            if (method === 'face') {
-                faceArea.classList.remove('hidden');
-                fingerprintArea.classList.add('hidden');
-                faceBtn.classList.add('active');
-                fingerprintBtn.classList.remove('active');
-                document.getElementById('statusMessage').textContent = 'Face recognition';
-            } else {
-                faceArea.classList.add('hidden');
-                fingerprintArea.classList.remove('hidden');
-                faceBtn.classList.remove('active');
-                fingerprintBtn.classList.add('active');
-                document.getElementById('statusMessage').textContent = 'Fingerprint recognition';
+        // 打开摄像头
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                video.srcObject = stream;
+            } catch (error) {
+                console.error("无法访问摄像头:", error);
             }
         }
+
+        // 捕获并发送图像到后端
+        async function captureAndSend() {
+            const canvas = document.createElement('canvas');
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // 将图像转换为 Blob
+            canvas.toBlob(async (blob) => {
+                const formData = new FormData();
+                formData.append("image", blob, "capture.jpg");
+
+                try {
+                    const response = await fetch('/recognize-face', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const result = await response.json();
+                    console.log("Face recognition result:", result);
+                    alert(`识别结果：${JSON.stringify(result)}`);
+                } catch (error) {
+                    console.error("识别失败:", error);
+                }
+            }, "image/jpeg");
+        }
+
+        startCamera();
     </script>
 </body>
 </html>
