@@ -1,18 +1,28 @@
 const axios = require('axios');
-const { sendMessage } = require('../services/messageQueue');
-const { logError } = require('../services/logging');
+const multer = require('multer');
+const fs = require('fs');
 
-exports.recognizeFace = async (req, res, next) => {
-    const { imageUrl } = req.body;
+// 设置 multer 存储配置
+const upload = multer({ dest: 'uploads/' });
+
+exports.upload = upload.single('image');
+
+exports.recognizeFace = async (req, res) => {
+    const imagePath = req.file.path;
 
     try {
+        // 读取图像文件并转换为 base64
+        const imageData = fs.readFileSync(imagePath);
+        const imageBase64 = imageData.toString('base64');
+
+        // 发送图像到 Azure Face API
         const response = await axios.post(
             `${process.env.FACE_API_ENDPOINT}/face/v1.0/detect`,
-            { url: imageUrl },
+            Buffer.from(imageBase64, 'base64'),  // 将图像作为二进制数据发送
             {
                 headers: {
                     'Ocp-Apim-Subscription-Key': process.env.FACE_API_KEY,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/octet-stream'
                 },
                 params: {
                     returnFaceId: true,
@@ -22,10 +32,12 @@ exports.recognizeFace = async (req, res, next) => {
         );
 
         const faceData = response.data;
-        sendMessage('faceRecognitionQueue', faceData);
-        res.json({ message: 'Face recognition data sent for processing', data: faceData });
+        res.json({ message: 'Face recognized', data: faceData });
     } catch (error) {
-        logError('Face recognition failed', error);
-        next(error);
+        console.error("Face recognition failed:", error);
+        res.status(500).json({ error: 'Face recognition failed' });
+    } finally {
+        // 删除临时文件
+        fs.unlinkSync(imagePath);
     }
 };
