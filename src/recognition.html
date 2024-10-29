@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>面部识别</title>
+    <title>Face Recognition</title>
     <style>
         * {
             margin: 0;
@@ -66,32 +66,43 @@
             border-radius: 8px;
             margin-top: 20px;
         }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>面部识别</h2>
+        <h2>Face Recognition</h2>
         <div class="face-placeholder">
             <video id="video" autoplay playsinline></video>
         </div>
-        <button class="auth-button" onclick="captureAndSend()">识别面部</button>
+        <button class="auth-button" onclick="captureAndSend()">Start Identification</button>
+        <div id="result" class="result">Awaiting verification...</div>
     </div>
 
     <script>
         const video = document.getElementById('video');
+        const resultDiv = document.getElementById('result');
 
-        // 打开摄像头
+        // 开启摄像头
         async function startCamera() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: true });
                 video.srcObject = stream;
             } catch (error) {
-                console.error("无法访问摄像头:", error);
+                console.error("Unable to access the camera:", error);
+                resultDiv.innerHTML = `Error: Unable to access the camera. ${error.message}`;
             }
         }
 
-        // 捕获并发送图像到后端
+        // 捕获图像并发送到后端检测
         async function captureAndSend() {
+            resultDiv.innerHTML = "Processing..."; // 显示处理中
             const canvas = document.createElement('canvas');
             canvas.width = video.videoWidth;
             canvas.height = video.videoHeight;
@@ -108,15 +119,31 @@
                         method: 'POST',
                         body: formData
                     });
+                    
+                    // 检查响应是否成功
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.statusText}`);
+                    }
+
                     const result = await response.json();
-                    console.log("Face recognition result:", result);
-                    alert(`识别结果：${JSON.stringify(result)}`);
+
+                    // 假设后端返回 `isHuman`, `age`, `emotion` 字段
+                    const { isHuman, age, emotion } = result;
+
+                    // 显示识别结果
+                    if (isHuman) {
+                        resultDiv.innerHTML = `识别成功！年龄: ${age}，表情: ${emotion}`;
+                    } else {
+                        resultDiv.innerHTML = "检测到机器人或无效人脸！";
+                    }
                 } catch (error) {
                     console.error("识别失败:", error);
+                    resultDiv.innerHTML = `识别失败，请重试。错误: ${error.message}`;
                 }
             }, "image/jpeg");
         }
 
+        // 启动摄像头
         startCamera();
     </script>
 </body>
