@@ -1,22 +1,25 @@
 {
-  "name": "azure-face-recognition-project",
+  "name": "face-recognition-app",
   "version": "1.0.0",
-  "description": "Face recognition project using Azure Face API, RabbitMQ, and Node.js backend",
-  "main": "server.js",
+  "description": "A face recognition application with front-end and back-end integration.",
+  "main": "src/backEnd/server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node src/backEnd/server.js",
+    "dev": "nodemon src/backEnd/server.js"
   },
   "dependencies": {
     "express": "^4.18.2",
+    "body-parser": "^1.20.1",
     "dotenv": "^10.0.0",
     "axios": "^0.27.2",
     "amqplib": "^0.8.0",
     "winston": "^3.3.3",
-    "body-parser": "^1.20.1"
+    "face-api.js": "^0.22.2"  // 用于前端人脸识别
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "author": "",
-  "license": "ISC"
+  }
 }
