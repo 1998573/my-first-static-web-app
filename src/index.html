@@ -93,7 +93,7 @@
 
         .bio-auth {
             display: flex;
-            justify-content: center; /* Center the icon */
+            justify-content: center;
             margin-top: 15px;
         }
 
@@ -101,7 +101,7 @@
             width: 40px;
             cursor: pointer;
             transition: transform 0.2s;
-            margin-right: 10px; /* Adjust space between icons if needed */
+            margin-right: 10px;
         }
 
         .bio-auth img:hover {
@@ -146,6 +146,11 @@
             // 输入有效，跳转到recognition.html
             window.location.href = 'recognition.html';
         }
+
+        function redirectToRecognition() {
+            // 将URL编码以确保解析正确
+            window.location.href = 'recognition.html'; // 修改为适当的文件名
+        }
     </script>
 </head>
 
@@ -166,10 +171,10 @@
                 Next
             </button>
             <div class="bio-auth">
-                <img src="https://i.postimg.cc/25CQwRvK/6bdf366a07d5df454c22f17af873d5a.png" alt="面部识别" title="面部识别">
+                <img src="https://i.postimg.cc/25CQwRvK/6bdf366a07d5df454c22f17af873d5a.png" alt="面部识别" title="面部识别" onclick="redirectToRecognition()">
             </div>
             <div class="register-link">
-                Without an account? <a href="signUp.html">Sign up here!</a>
+                Without an account? <a href="register.html">Sign up here!</a>
             </div>
         </div>
     </div>
